@@ -1,5 +1,7 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, {useEffect} from "react";
+import { motion, useAnimation } from "framer-motion";
+import {useInView} from 'react-intersection-observer';
+import cv from '../../assets/Franco-Gimenez-CV.pdf';
 import {
     BackgroundAbout,
     ContainerAbout,
@@ -10,26 +12,47 @@ import {
     Right,
     TitleAbout,
     Text,
-    ButtonAbout
+    ButtonAbout,
+    LinkCv
 } from './StyledAbout';
 import avatar from '../../assets/profile.jpg';
 
 export default function About() {
 
+    const {ref, inView} = useInView({
+        threshold: 0.2
+    });
+    const animation = useAnimation();
+
+    useEffect(() => {
+        console.log('hi', inView)
+        if(inView){
+            animation.start({
+                x: 0,
+                transition: {
+                    type: 'spring', duration: 2.0, bounce: 0.3
+                },
+            })
+        }
+        if(!inView){
+            animation.start({x: '-100vw'})
+        }
+    }, [inView])
+
     return (
-        <BackgroundAbout id="about">
+        <BackgroundAbout id="about" ref={ref}>
             <motion.div
-                initial={{ x: "-100vW", opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ type: "spring", delay: 1.5, bounce: 0.2 }}
+                // initial={{ x: "-100vW", opacity: 0 }}
+                animate={animation}
+                // transition={{ type: "spring", delay: 1.5, bounce: 0.2 }}
             >
                 <TitleAbout>Sobre Mi</TitleAbout>
             </motion.div>
             <DivGrid>
                 <motion.div
-                    initial={{ x: "-100vW", opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ type: "spring", delay: 2.5, bounce: 0.2 }}
+                    // initial={{ x: "-100vW", opacity: 0 }}
+                    animate={animation}
+                    // transition={{ type: "spring", delay: 2.5, bounce: 0.2 }}
                 >
                     <Right>
                         <Text>
@@ -40,13 +63,15 @@ export default function About() {
                                 Podes conocer más acerca de mi acá abajo 👇
                             </p>
                         </Text>
-                        <ButtonAbout>Curriculum</ButtonAbout>
+                        <ButtonAbout>
+                            <LinkCv href={cv} download target='_blank'>Mi CV</LinkCv>
+                        </ButtonAbout>
                     </Right>
                 </motion.div>
                 <motion.div
-                    initial={{ x: "100vW", opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ type: "spring", delay: 2.5, bounce: 0.2 }}
+                    // initial={{ x: "100vW", opacity: 0 }}
+                    animate={animation}
+                    // transition={{ type: "spring", delay: 2.5, bounce: 0.2 }}
                 >
                     <Left>
                         <ImageAbout src={avatar} alt='avatar' />

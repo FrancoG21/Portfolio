@@ -7,10 +7,6 @@ export const BackgroundContact = styled.div`
     background-color: ${(props) => props.theme.background};
     height: 100vh;
     padding: 10px;
-
-    @media screen and (max-width: 960px) {
-        height: 130vh;
-    }
 `
 
 export const TitleContact = styled.h1`

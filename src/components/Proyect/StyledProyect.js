@@ -8,7 +8,7 @@ export const BackgroundProyect = styled.div`
 
   @media screen and (max-width: 960px) {
     padding: 10px;
-    height: 200vh;
+    height: 140vh;
   }
 `
 

@@ -141,3 +141,8 @@ export const ButtonAbout = styled.button`
     margin-bottom: 10px;
   }
 `
+
+export const LinkCv = styled.a`
+  text-decoration: none;
+  color: ${(props) => props.theme.font};
+`

@@ -1,5 +1,6 @@
-import React from 'react';
-import { motion } from "framer-motion";
+import React, {useEffect} from "react";
+import { motion, useAnimation } from "framer-motion";
+import {useInView} from 'react-intersection-observer';
 import {
     BackgroundExp,
     Card,
@@ -20,21 +21,41 @@ import {
 
 export default function Experience() {
 
+    const {ref, inView} = useInView({
+        threshold: 0.2
+    });
+    const animation = useAnimation();
+
+    useEffect(() => {
+        console.log('hi', inView)
+        if(inView){
+            animation.start({
+                x: 0,
+                transition: {
+                    type: 'spring', duration: 2.0, bounce: 0.3
+                },
+            })
+        }
+        if(!inView){
+            animation.start({x: '-100vh'})
+        }
+    }, [inView])
+
     return (
-        <BackgroundExp id='experience'>
+        <BackgroundExp id='experience' ref={ref}>
             <motion.div
-                initial={{ y: "-100vh", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ type: "spring", delay: 1.5, bounce: 0.2 }}
+                // initial={{ y: "-100vh", opacity: 0 }}
+                animate={animation}
+                // transition={{ type: "spring", delay: 1.5, bounce: 0.2 }}
             >
                 <TitleExperience>¿Que tecnologías puedo utilizar?</TitleExperience>
             </motion.div>
 
             <Container>
                 <motion.div
-                    initial={{ y: "100vh", opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ type: "spring", delay: 2.0, bounce: 0.2 }}
+                    // initial={{ y: "100vh", opacity: 0 }}
+                    animate={animation}
+                    // transition={{ type: "spring", delay: 2.0, bounce: 0.2 }}
                 >
                     <DivGrid>
                         <Card>

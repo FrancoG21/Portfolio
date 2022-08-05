@@ -104,6 +104,11 @@ export const Button = styled.button`
   }
 `
 
+export const LinkCv = styled.a`
+  text-decoration: none;
+  color: ${(props) => props.theme.font};
+`
+
 export const Social = styled.div`
   display: flex;
   flex-direction: column;

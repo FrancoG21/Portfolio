@@ -23,6 +23,10 @@ export const Container = styled.div`
   margin: 0 auto;
   justify-content: center;
   width: 60%;
+
+  @media screen and (max-width: 960px) {
+    margin-top: 120px;
+  }
 `
 
 export const DivGrid = styled.div`

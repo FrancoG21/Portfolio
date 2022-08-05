@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from "react";
+import { motion, useAnimation } from "framer-motion";
+import {useInView} from 'react-intersection-observer';
 import game from '../../assets/pi-videogames.jpg';
 import dogs from '../../assets/pf.jpg';
-import { motion } from "framer-motion";
 import {
     BackgroundProyect,
     ButtonRepo,
@@ -21,19 +22,39 @@ import {
 
 export default function Proyect() {
 
+    const {ref, inView} = useInView({
+        threshold: 0.2
+    });
+    const animation = useAnimation();
+
+    useEffect(() => {
+        console.log('hi', inView)
+        if(inView){
+            animation.start({
+                x: 0,
+                transition: {
+                    type: 'spring', duration: 2.0, bounce: 0.3
+                },
+            })
+        }
+        if(!inView){
+            animation.start({x: '-100vh'})
+        }
+    }, [inView])
+
     return (
-        <BackgroundProyect id="proyect">
+        <BackgroundProyect id="proyect" ref={ref}>
             <motion.div
-                initial={{ x: "-100vW", opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ type: "spring", delay: 1.5, bounce: 0.2 }}
+                // initial={{ x: "-100vW", opacity: 0 }}
+                animate={animation}
+                // transition={{ type: "spring", delay: 1.5, bounce: 0.2 }}
             >
                 <TitleProyect>Proyectos</TitleProyect>
             </motion.div>
             <motion.div
-                initial={{ x: "100vW", opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ type: "spring", delay: 2.5, bounce: 0.5 }}
+                // initial={{ x: "100vW", opacity: 0 }}
+                animate={animation}
+                // transition={{ type: "spring", delay: 2.5, bounce: 0.5 }}
             >
                 <GridProyect>
                     <ContainerProyect>

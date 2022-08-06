@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 
 export const useDarkMode = () => {
     const [theme, setTheme] = useState('light');
 
     const setMode = (mode) => {
-        window.localStorage.getItem('theme, mode');
+        window.localStorage.setItem('theme', mode);
         setTheme(mode)
     }
 
